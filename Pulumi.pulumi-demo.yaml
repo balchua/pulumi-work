@@ -1,0 +1,5 @@
+config:
+  pulumi-demo:isLocal: "true"
+  pulumi-demo:namespace: default
+  pulumi-demo:sapassword:
+    secure: AAABAMsJ/cZ8tpkgO1Xha+zYtZjJyO2n0BCXF9Nzn2yP/U6SenJ79+0=

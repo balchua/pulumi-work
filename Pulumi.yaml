@@ -1,0 +1,8 @@
+name: pulumi-demo
+description: A simple project to demonstrate how to deploy kubernetes workload to k8s
+runtime: nodejs
+template:
+  config:
+    isLocal:
+      description: Whether you are deploying to local single cluster, like minikube or microk8s or docker for mac
+      default: true
