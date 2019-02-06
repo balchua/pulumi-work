@@ -1,5 +1,5 @@
 {
-    "name": "exposed-deployment",
+    "name": "pulumi-demo",
     "devDependencies": {
         "@types/node": "latest"
     },

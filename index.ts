@@ -20,6 +20,7 @@ techtalksApi.apply()
 
 const techtalksWeb = new TechTalksWeb('techtalkweb', "nileshgule/techtalksweb:v1", namespace, techtalksApi.serviceName());
 techtalksWeb.apply()
+techtalksWeb.showDetails()
 
 
 

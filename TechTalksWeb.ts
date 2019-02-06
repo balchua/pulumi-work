@@ -1,5 +1,7 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as k8s from "@pulumi/kubernetes";
+import { specialArchiveSig } from "@pulumi/pulumi/runtime";
+import { meta } from "@pulumi/kubernetes/types/input";
 
 export class TechTalksWeb {
     private _name: string;
@@ -10,6 +12,7 @@ export class TechTalksWeb {
     private _containerPort: number;
     private _servicePort: number;
     private _protocol:string;
+    private _frontendService: k8s.core.v1.Service;
 
      
     constructor(public podName: string, public imageName: string, public namespace: string, public techTalkApiService: pulumi.Output<string>) {
@@ -70,7 +73,7 @@ export class TechTalksWeb {
     private service(techtalksWeb: k8s.apps.v1beta1.Deployment ) {
         let config = new pulumi.Config();
         let isLocal = config.require("isLocal");
-        const frontend = new k8s.core.v1.Service(this._name, {
+        this._frontendService = new k8s.core.v1.Service(this._name, {
             metadata: { 
                 labels: techtalksWeb.spec.apply(spec => spec.template.metadata.labels),
                 namespace: techtalksWeb.metadata.apply(spec => spec.namespace),
@@ -89,12 +92,25 @@ export class TechTalksWeb {
                 selector: this._labels
             }
         });
+       
+    }
+
+    showDetails() {
+        this._frontendService.metadata.apply(metadata => {
+            console.log("Service Name: " + metadata.name)
+        });
+
+        this._frontendService.spec.apply(spec => {
+            console.log("ClusterIP: " + spec.clusterIP)
+        });
+        
     }
 
     apply() {
         let env = this.setupContainerEnvironment();
         let techtalksWeb = this.deployment(env);
         this.service(techtalksWeb);
+       
     }
 
 }
