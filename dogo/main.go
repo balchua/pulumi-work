@@ -9,7 +9,7 @@ import (
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
 
-		node := infra.MicroK8sNode{
+		node := infra.Node{
 			Count:  2,
 			Image:  "ubuntu-20-04-x64",
 			Region: "sgp1",

@@ -8,7 +8,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v2/go/pulumi"
 )
 
-type MicroK8sNode struct {
+type Node struct {
 	Count  int
 	Name   string
 	Image  string
@@ -16,7 +16,7 @@ type MicroK8sNode struct {
 	Size   string
 }
 
-func CreateNodes(ctx *pulumi.Context, node MicroK8sNode) ([]do.Droplet, error) {
+func CreateNodes(ctx *pulumi.Context, node Node) ([]do.Droplet, error) {
 
 	nodes := []do.Droplet{}
 	for i := 0; i < node.Count; i++ {
